@@ -1,0 +1,21 @@
+FROM mcr.microsoft.com/windows/servercore/iis
+
+RUN powershell -NoProfile -Command Remove-Item -Recurse C:\inetpub\wwwroot\*
+
+WORKDIR /inetpub/wwwroot
+
+SHELL ["powershell","-command"]
+RUN Install-WindowsFeature NET-Framework-45-ASPNET ; \
+    Install-WindowsFeature Web-Asp-Net45
+
+VOLUME c:\\dockerdebug
+VOLUME c:\\vs-debugger
+
+RUN Remove-WebSite -Name 'Default Web Site'
+RUN New-Website -Name 'ddtest' -Port 80 -HostHeader 'ddtest' -PhysicalPath 'C:\dockerdebug'
+RUN New-WebApplication -Name 'dockertest' -Site 'ddtest' \
+    -PhysicalPath 'C:\DockerDebug' -ApplicationPool '.NET v4.5'
+RUN Add-Content -Path 'C:\Windows\System32\Drivers\etc\hosts' '127.0.0.1 ddtest'
+
+
+EXPOSE 80 4020 4021

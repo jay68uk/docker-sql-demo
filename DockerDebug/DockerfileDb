@@ -1,0 +1,5 @@
+FROM microsoft/mssql-server-windows-developer:2017
+
+VOLUME c:\\sqldata
+
+EXPOSE 1433

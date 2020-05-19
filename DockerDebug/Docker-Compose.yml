@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  webapp:
+   image: ddtest:3.0
+   container_name: ddtest3
+   build:
+     context: .
+     dockerfile: Dockerfile
+   depends_on:
+     - sqlserver
+   ports:
+     - '8080:80'
+     - '4020:4020'
+     - '4021:4021'
+   volumes:
+     - C:\rspb\dockerdemo_sql\dockerdebug:c:\inetpub\wwwroot
+     - C:\Rspb\Debugger:c:\.vs-debugger
+   networks:
+     web_db:
+       aliases:
+         - website    
+       
+  sqlserver:
+   image: ddtestsql:latest
+   container_name: ddtest_sql
+   build:
+     context: .
+     dockerfile: DockerfileDb
+   environment:
+     - ACCEPT_EULA=Y
+     - SA_PASSWORD=Password_01    
+     - attach_dbs=[{'dbName':'dockerdb','dbFiles':['C:\\sqldata\\dockertestdb.mdf','C:\\sqldata\\dockertestdb_log.ldf']}]
+   ports:
+     - '8433:1433'
+   volumes:
+     - C:\rspb\dockerdemo_sql\dockerdebug\sql_data:c:\SQLData
+   networks:
+     web_db:
+       aliases:
+         - webdb
+       
+networks:
+  web_db:
+
+    
