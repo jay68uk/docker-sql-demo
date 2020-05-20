@@ -23,12 +23,7 @@ namespace DockerDebug.Controllers
                 var textRepo = new ListsRepo(db);
                 var returnText = textRepo.GetCount();
 
-                foreach (var item in textRepo.GetData())
-                {
-                    tableList += item.table_name + "/n";
-                }
-
-                msg = "Db Connection OK: Count of records - " + returnText.ToString() + "/n" + tableList;
+                msg = "Db Connection OK";
             }
             catch (Exception e)
             {

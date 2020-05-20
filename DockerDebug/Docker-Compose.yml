@@ -15,7 +15,6 @@ services:
      - '4021:4021'
    volumes:
      - C:\dockerdemo_sql\dockerdebug:c:\inetpub\wwwroot
-     - C:\Debugger:c:\.vs-debugger
    networks:
      web_db:
        aliases:
