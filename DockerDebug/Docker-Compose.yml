@@ -14,8 +14,8 @@ services:
      - '4020:4020'
      - '4021:4021'
    volumes:
-     - C:\rspb\dockerdemo_sql\dockerdebug:c:\inetpub\wwwroot
-     - C:\Rspb\Debugger:c:\.vs-debugger
+     - C:\dockerdemo_sql\dockerdebug:c:\inetpub\wwwroot
+     - C:\Debugger:c:\.vs-debugger
    networks:
      web_db:
        aliases:
@@ -34,7 +34,7 @@ services:
    ports:
      - '8433:1433'
    volumes:
-     - C:\rspb\dockerdemo_sql\dockerdebug\sql_data:c:\SQLData
+     - C:\dockerdemo_sql\dockerdebug\sql_data:c:\SQLData
    networks:
      web_db:
        aliases:
